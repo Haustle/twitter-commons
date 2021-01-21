@@ -6,6 +6,11 @@ export default function Home() {
   const [users, setUsers] = React.useState([])
   var inputUsername = React.createRef();
 
+  const removeProfile = (profName) => {
+    // console.log(profName)
+    setUsers(users.filter(username => username !== profName))
+  }
+
   const getValue = () => {
     const enteredName = inputUsername.value;
     if(enteredName && !users.includes(enteredName)){
@@ -46,25 +51,23 @@ export default function Home() {
                   if(e.key == "Enter") getValue()
                 }} />
               </div>
-              <div className="enter-button" onClick={getValue}>Enter</div>
+              <div className="enter-button" onClick={getValue}>press <span className="enter-text">Enter</span></div>
 
             </div>
           </div>
           <div className="profiles-container">
-
-
             {users.map((username, index) => (
 
-              <div key={`${username}-${index}`}> 
-              
-              {/* Throwing twitter @'s into the component */}
+              <div key={`${username}-${index}`} className="twitter-card"> 
                 <GivenCard profileName={username}/>
+                <div className="remove-text" onClick={() => removeProfile(username)}> Remove </div>
               </div>
-
             ))}
 
-
           </div>
+
+
+
       </div>
     </div>
 
@@ -72,13 +75,33 @@ export default function Home() {
     {/* need to go back and program so it sticks to footer */}
     <footer>
       <div className="footer-content ibm">
-          Made by <span className="dev">Tyrus</span> & <span className="dev">Antonio</span>
+          Made by <span className="dev"><a href="https://tyrus.im" target="_blank">Tyrus</a></span> & <span className="dev"><a href="https://aenriq.com" target="_blank">Antonio</a></span>
 
       </div>
     </footer>
     <style jsx>{`
+      .twitter-card{
+      }
+      .enter-text{
+        background-color: #efefef;
+        padding: 2px 5px;
+        border-radius: 5px;
+        margin-left: 5px;
+      }
+      .remove-text{
+        width: max-content;
+        margin: 0 auto;
+        cursor: pointer;
+        font-size: .8rem;
+        margin-top: 15px;
+      }
+      .remove-text:hover{
+        text-decoration: underline;
+      }
       .profiles-container{
-        display: flex;
+        // display: flex;
+        display: inline-flex;
+
       }
       .dev{
         cursor: pointer;

@@ -2,7 +2,7 @@ export default function GivenCard({ profileName = null}){
     return(
         <>
             <div className="card-wrapper">
-                <div className="card-container shadow">
+                <div className="card-container">
                     <div className="profile-image-container">
                         <div className="profile-image"></div>
                     </div>
@@ -29,20 +29,6 @@ export default function GivenCard({ profileName = null}){
             <style jsx>{`
                 .card-wrapper{
                     width: 250px;
-                }
-                .shadow{
-                    transition: all 0.3s
-                    // border: 1px solid transparent;
-                    box-shadow: 0 1px 1px rgba(0,0,0,0.0), 
-                            0 2px 2px rgba(0,0,0,0.0), 
-                            0 4px 4px rgba(0,0,0,0.0); 
-                }
-
-                .shadow:hover{
-                    // border: 1px solid whitesmoke;
-                    box-shadow: 0 1px 1px rgba(0,0,0,0.05), 
-                            0 2px 2px rgba(0,0,0,0.05), 
-                            0 4px 4px rgba(0,0,0,0.05); 
                 }
                 .detail-container:not(first-child){
                     margin-top: 20px;
