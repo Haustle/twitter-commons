@@ -2,6 +2,7 @@ import GivenCard from '../components/Cards/TwitterGiven'
 import React, { useEffect, useState } from 'react'
 
 
+let a = 0;
 export default function Home() {
   const [users, setUsers] = React.useState([])
   var inputUsername = React.createRef();
@@ -69,6 +70,7 @@ export default function Home() {
 
 
       </div>
+
     </div>
 
 
@@ -180,4 +182,7 @@ export default function Home() {
     `}</style>
     </>
   )
+
+
 }
+
