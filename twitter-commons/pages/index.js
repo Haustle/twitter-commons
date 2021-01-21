@@ -42,7 +42,6 @@ export default function Home() {
         </div>
     </header>
     <div className="content-container flex-center">
-
       <div className="width-100 content-wrapper">
 
           <div className="search-bar-wrapper width-100 flex-center">
@@ -111,7 +110,8 @@ export default function Home() {
         text-decoration: underline;
       }
       .footer-content{
-        margin-top: 100px;
+        margin-top: 50px;
+        margin-bottom: 100px;
       }
       footer{
         margin: 0 auto;

@@ -2,6 +2,7 @@
 
 html,
 body {
+  height: 100%;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -21,4 +22,15 @@ a {
     font-family: 'IBM Plex Mono';
 }
 
+#__next{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+.content-container{
+    display: flex;
+    width: 60%; 
+    margin: 0 auto; 
+    flex: 1;
+}
