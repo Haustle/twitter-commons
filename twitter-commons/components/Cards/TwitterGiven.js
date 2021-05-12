@@ -1,12 +1,21 @@
-export default function GivenCard({ profileName = null}){
+import user_call from '../../api_calls/api'
+import userdb from '../../db/users'
+export default function GivenCard({ profileInfo }){
+
+    // const info = user_call(profileName);
+
+    console.log("profileInfo is down below")
+    console.log(profileInfo)
+
+
     return(
         <>
             <div className="card-wrapper">
-                <div className="card-container">
+                <div className="card-container ">
                     <div className="profile-image-container">
                         <div className="profile-image"></div>
                     </div>
-                    <div className="twitter-at">@{profileName}</div>
+                    <div className="twitter-at">@{profileInfo.username}</div>
 
                     <div className="profile-details-container">
                         <div className="detail-container">
@@ -75,6 +84,8 @@ export default function GivenCard({ profileName = null}){
                     // padding: 10px;
                     border-radius: 50%;
                     background-color: black;
+                    background: url(${profileInfo.img});
+                    background-size: cover;
                 }
                 .card-container{
                     padding: 25px;

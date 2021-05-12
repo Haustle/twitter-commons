@@ -1,31 +1,44 @@
 import GivenCard from '../components/Cards/TwitterGiven'
 import React, { useEffect, useState } from 'react'
+import check from '../db/users'
 
 
-let a = 0;
+
 export default function Home() {
-  const [users, setUsers] = React.useState([])
+
+
+  // const [users, setUsers] = React.useState([])
+  const [accounts, setAccounts] = React.useState(new Map());
   var inputUsername = React.createRef();
 
-  const removeProfile = (profName) => {
-    // console.log(profName)
-    setUsers(users.filter(username => username !== profName))
+  const removeProfile = (username) => {
+    var tempMap = accounts;
+    tempMap.delete(username)
+    setAccounts(new Map(tempMap));
+    console.log('removed account');
+    console.log(accounts)
+    // setAccounts(tempMap);
   }
 
-  const getValue = () => {
+
+
+  const search = async () => {
     const enteredName = inputUsername.value;
-    if(enteredName && !users.includes(enteredName)){
-      var temp = [...users, enteredName]
-      setUsers(temp)
-      inputUsername.value = "";
+    console.log(`entered name: ${enteredName}`);
+    inputUsername.value = "";
+
+
+    if (enteredName && !accounts.has(enteredName)){
+      const foundInfo = await check(enteredName);
+      if (foundInfo){
+
+        setAccounts(new Map(accounts.set(enteredName, foundInfo)))
+        console.log(accounts)
+        console.log("Added account")
+        }
+
     }
-  }
-
-  useEffect(() => {
-
-  })
-
-
+  }  
   return (
     <>
     <header>
@@ -48,26 +61,23 @@ export default function Home() {
             <div className="search-bar-container">
               <div>
                 <input id="search-bar" type="text" ref={ input => inputUsername = input} placeholder="Enter twitter @" onKeyDown={(e) => {
-                  if(e.key == "Enter") getValue()
+                  if(e.key == "Enter") search()
                 }} />
               </div>
-              <div className="enter-button" onClick={getValue}>press <span className="enter-text">Enter</span></div>
+              <div className="enter-button" onClick={() => search()}>press <span className="enter-text">Enter</span></div>
 
             </div>
           </div>
           <div className="profiles-container">
-            {users.map((username, index) => (
 
-              <div key={`${username}-${index}`} className="twitter-card"> 
-                <GivenCard profileName={username}/>
-                <div className="remove-text" onClick={() => removeProfile(username)}> Remove </div>
+            {[...accounts.keys()].map((username) => (
+              <div className="profile">
+                <GivenCard profileInfo={accounts.get(username)}/>
+                <div className="remove-text" onClick={() => removeProfile(username)}>remove</div>
               </div>
             ))}
 
           </div>
-
-
-
       </div>
 
     </div>
@@ -77,12 +87,10 @@ export default function Home() {
     <footer>
       <div className="footer-content ibm">
           Made by <span className="dev"><a href="https://tyrus.im" target="_blank">Tyrus</a></span> & <span className="dev"><a href="https://aenriq.com" target="_blank">Antonio</a></span>
-
       </div>
     </footer>
     <style jsx>{`
-      .twitter-card{
-      }
+
       .enter-text{
         background-color: #efefef;
         padding: 2px 5px;
@@ -100,7 +108,6 @@ export default function Home() {
         text-decoration: underline;
       }
       .profiles-container{
-        // display: flex;
         display: inline-flex;
 
       }
@@ -133,7 +140,6 @@ export default function Home() {
         padding: 10px;
         font-size: 1rem;
         outline: none;
-
       }
       .input-title{
         margin-right: 30px;
